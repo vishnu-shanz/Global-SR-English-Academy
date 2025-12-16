@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global SR English Learning Academy</title>
+<link rel="icon" href="assets/logo/favicon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= DESIGN SYSTEM ================= */
+:root{
+  --gold:#e6c46f;
+  --emerald:#2dd4bf;
+  --violet:#8b8bff;
+  --bg:#05071c;
+  --ink:#eef2ff;
+  --muted:#b8c1ff;
+  --glass:rgba(255,255,255,.08);
+  --shadow:0 40px 120px rgba(0,0,0,.65);
+}
+[data-theme="light"]{
+  --bg:#eef1ff;
+  --ink:#0b102a;
+  --muted:#5c648c;
+  --glass:rgba(255,255,255,.65);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter;
+  background:var(--bg);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+/* ================= BACKGROUND ================= */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(230,196,111,.35), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(45,212,191,.35), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(139,139,255,.25), transparent 55%);
+  animation:cinema 24s infinite alternate ease-in-out;
+}
+@keyframes cinema{
+  to{transform:scale(1.12) rotate(6deg)}
+}
+
+/* ================= LAYOUT ================= */
+.container{max-width:1700px;margin:auto;padding:28px}
+
+/* ================= HEADER ================= */
+header{
+  position:sticky;top:18px;z-index:50;
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
+  padding:26px 34px;border-radius:36px;
+  background:var(--glass);backdrop-filter:blur(24px);
+  box-shadow:var(--shadow);
+}
+.brand{display:flex;align-items:center;gap:16px}
+.brand img{height:60px}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--ink);font-weight:600}
+.btn{
+  padding:12px 18px;border-radius:16px;border:none;
+  font-weight:700;cursor:pointer
+}
+.primary{background:linear-gradient(135deg,var(--gold),#fff1a8);color:#000}
+.ghost{background:transparent;border:1px solid var(--gold);color:var(--ink)}
+
+/* ================= SECTIONS ================= */
+.section{
+  margin-top:80px;padding:60px;border-radius:48px;
+  background:var(--glass);backdrop-filter:blur(24px);
+  box-shadow:var(--shadow)
+}
+.section h2{font-family:"Playfair Display";font-size:40px}
+.section p{max-width:1200px;color:var(--muted);line-height:1.9}
+
+/* ================= GRID ================= */
+.grid{
+  margin-top:36px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:32px
+}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+/* ================= CARD ================= */
+.card{
+  padding:26px;border-radius:30px;
+  background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.05));
+  box-shadow:0 35px 90px rgba(0,0,0,.45);
+}
+.card h3{text-align:center}
+
+/* ================= IMAGE ================= */
+.img-box{
+  height:220px;border-radius:22px;overflow:hidden;margin-bottom:12px
+}
+.img-box img{
+  width:100%;height:100%;
+  object-fit:cover;
+  cursor:pointer
+}
+
+/* ================= MODALS ================= */
+.modal,.lightbox{
+  position:fixed;inset:0;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(0,0,0,.85);z-index:300
+}
+.modal-box{
+  background:var(--glass);padding:28px;border-radius:28px;
+  width:540px;max-height:90vh;overflow:auto
+}
+
+/* ================= FLOATING ================= */
+.whatsapp{
+  position:fixed;bottom:26px;right:26px;
+  background:#25D366;color:#fff;padding:14px 22px;
+  border-radius:50px;font-weight:700;text-decoration:none;z-index:200
+}
+
+/* ================= CHATBOT ================= */
+.chatbot{position:fixed;bottom:26px;left:26px;z-index:200}
+.chat-window{
+  display:none;width:360px;height:480px;
+  background:var(--glass);border-radius:26px;
+  padding:14px;backdrop-filter:blur(20px)
+}
+.chat-messages{height:380px;overflow:auto;font-size:14px}
+.chat-input{display:flex;gap:6px}
+</style>
+</head>
+
+<body>
+<div class="bg"></div>
+
+<a class="whatsapp" href="https://wa.me/919345759037" target="_blank">💬 WhatsApp</a>
+
+<!-- CHATBOT -->
+<div class="chatbot">
+  <button class="btn primary" onclick="toggleChat()">🤖 Chat</button>
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-messages" id="chatMsgs">
+      <b>Academy Bot:</b> Ask me about courses, fees, duration, certificates or SRID.
+    </div>
+    <div class="chat-input">
+      <input id="chatInput" placeholder="Type here...">
+      <button class="btn primary" onclick="sendChat()">Send</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<header>
+  <div class="brand">
+    <img src="assets/logo/logo.png">
+    <div>
+      <strong>Global SR English Learning Academy</strong><br>
+      <small>Confidence • Communication • Certification</small>
+    </div>
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#courses">Courses</a>
+    <a href="#srid">SRID</a>
+    <a href="#portions">Portions</a>
+    <a href="#certs">Certificates</a>
+    <a href="#gallery">Gallery</a>
+  </nav>
+  <div>
+    <button class="btn ghost" onclick="toggleTheme()">Theme</button>
+    <button class="btn primary" onclick="openAdmin()">Admin</button>
+  </div>
+</header>
+
+<!-- HOME -->
+<section id="home" class="section">
+<h2>Welcome</h2>
+<p>
+Global SR English Learning Academy is a professional English training institute committed to transforming learners into confident English speakers. Our structured learning programs are designed to help students overcome fear, hesitation, and communication barriers. We focus on real-time speaking practice, pronunciation improvement, grammar clarity, and vocabulary development. Each course follows a step-by-step approach that builds confidence gradually and naturally. Our training methodology suits school students, college learners, job seekers, and working professionals. We believe that English is a life skill, not just a subject, and we train learners accordingly. With expert guidance and continuous practice, students gain fluency and confidence in daily communication. Our goal is to help every learner speak English clearly, confidently, and independently.
+</p>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+<h2>About Us</h2>
+<p>
+Global SR English Learning Academy was founded with a vision to make English communication simple and accessible for everyone. We specialize in spoken English and communicative English training using practical, real-life examples. Our instructors focus on removing stage fear, hesitation, and lack of confidence in learners. Training sessions are interactive, learner-friendly, and designed for maximum speaking exposure. We provide individual attention and guidance to help learners progress at their own pace. Our syllabus is carefully structured from basic to advanced levels to ensure strong fundamentals. We emphasize continuous improvement through regular practice, feedback, and assessments. At Global SR, we don’t just teach English — we build confidence and communication skills for life.
+</p>
+</section>
+
+<!-- COURSES -->
+<section id="courses" class="section">
+<h2>Our Courses</h2>
+
+<h3>Learning Language</h3>
+<div class="grid" id="learningGrid"></div>
+
+<h3 style="margin-top:50px">Communicative English</h3>
+<div class="grid" id="commGrid"></div>
+</section>
+
+<!-- SRID -->
+<section id="srid" class="section">
+<h2>SRID Identification Cards</h2>
+<div class="grid" id="sridGrid"></div>
+</section>
+
+<!-- PORTIONS -->
+<section id="portions" class="section">
+<h2>Portions & Duration</h2>
+<div class="grid" id="portionsGrid"></div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certs" class="section">
+<h2>Certificates</h2>
+<div class="grid" id="certGrid"></div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="section">
+<h2>Gallery</h2>
+<div class="grid" id="galleryGrid"></div>
+</section>
+
+</div>
+
+<!-- COURSE MODAL -->
+<div class="modal" id="courseModal">
+  <div class="modal-box" id="courseDetail"></div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="modal" id="adminLoginModal">
+  <div class="modal-box">
+    <h3>Admin Login</h3>
+    <input id="adminPw" type="password" placeholder="Enter Password" style="width:100%;margin-bottom:10px">
+    <button class="btn primary" onclick="adminLogin()">Login</button>
+    <button class="btn ghost" onclick="adminLoginModal.style.display='none'">Cancel</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="modal" id="adminModal">
+  <div class="modal-box" style="width:600px;max-height:80vh;overflow:auto">
+    <h3>Add New Course</h3>
+    <label>Course Name:</label><br>
+    <input id="cName" placeholder="Course Name" style="width:100%;margin-bottom:10px"><br>
+    <label>Category:</label><br>
+    <select id="cCat" style="width:100%;margin-bottom:10px">
+      <option value="Learning Language">Learning Language</option>
+      <option value="Communicative English">Communicative English</option>
+    </select><br>
+    <label>Description:</label><br>
+    <textarea id="cDesc" placeholder="Description" style="width:100%;margin-bottom:10px"></textarea><br>
+    <label>Portions:</label><br>
+    <textarea id="cPortion" placeholder="Portions" style="width:100%;margin-bottom:10px"></textarea><br>
+    <label>Duration:</label><br>
+    <input id="cDuration" placeholder="Duration" style="width:100%;margin-bottom:10px"><br>
+    <label>Fees:</label><br>
+    <input id="cFees" placeholder="Fees" style="width:100%;margin-bottom:10px"><br>
+    <label>Certificate:</label><br>
+    <input id="cCert" placeholder="Certificate" style="width:100%;margin-bottom:10px"><br>
+    <label>Course Image:</label><br>
+    <input type="file" id="cImg" accept="image/*" style="width:100%;margin-bottom:10px"><br>
+    <button class="btn primary" onclick="addCourse()">Add Course</button>
+    <button class="btn ghost" onclick="adminModal.style.display='none'">Cancel</button>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.style.display='none'">
+  <img id="lightboxImg">
+</div>
+
+<script>
+function toggleTheme(){
+  document.documentElement.dataset.theme =
+    document.documentElement.dataset.theme==="dark"?"light":"dark";
+}
+function toggleChat(){
+  chatWindow.style.display =
+    chatWindow.style.display==="block"?"none":"block";
+}
+function sendChat(){
+  chatMsgs.innerHTML+=`<div><b>You:</b> ${chatInput.value}</div>`;
+  chatMsgs.innerHTML+=`<div><b>Bot:</b> Please contact us via WhatsApp.</div>`;
+  chatInput.value="";
+}
+function openLightbox(src){
+  lightboxImg.src=src;
+  lightbox.style.display="flex";
+}
+function openAdmin(){adminLoginModal.style.display="flex"}
+
+function adminLogin(){
+  if(adminPw.value === "admin123"){
+    adminLoginModal.style.display = "none";
+    adminModal.style.display = "flex";
+  } else {
+    alert("Incorrect password");
+  }
+}
+
+/* ===== COURSES DATA (FIXED EXACTLY AS REQUESTED) ===== */
+let learningCourses = JSON.parse(localStorage.getItem("learningCourses")) || [
+ {name:"Basic English",desc:"English fundamentals",portion:"Alphabets, words, sentences",duration:"2 Months",fees:"Affordable",cert:"Basic Certificate",img:"assets/courses/beginner/1.jpg"},
+ {name:"Intermediate English",desc:"Grammar & fluency",portion:"Tenses, speaking",duration:"3 Months",fees:"Moderate",cert:"Intermediate Certificate",img:"assets/courses/intermediate/1.jpg"}
+];
+
+// Remove any empty/unwanted entries (e.g., missing name or description)
+learningCourses = learningCourses.filter(c => c && c.name && c.desc);
+localStorage.setItem("learningCourses", JSON.stringify(learningCourses));
+
+let communicativeCourses = JSON.parse(localStorage.getItem("communicativeCourses")) || [
+ {name:"Pre-Basic Communication",desc:"Confidence start",portion:"Daily usage",duration:"1 Month",fees:"Low",cert:"Pre-Basic Certificate",img:"assets/courses/pre-basic/1.jpg"},
+ {name:"Basic Communication",desc:"Clear communication",portion:"Sentence framing",duration:"1.5 Months",fees:"Standard",cert:"Basic Communication Certificate",img:"assets/courses/basic/1.jpg"},
+ {name:"Pre-Intermediate Communication",desc:"Fluency building",portion:"Conversation practice",duration:"2 Months",fees:"Standard",cert:"Pre-Intermediate Certificate",img:"assets/courses/pre-intermediate/1.jpg"},
+ {name:"Intermediate Communication",desc:"Professional English",portion:"Presentations, interviews",duration:"3 Months",fees:"Premium",cert:"Intermediate Communication Certificate",img:"assets/courses/intermediate-comm/1.jpg"}
+];
+
+function renderGroup(grid,data){
+  grid.innerHTML="";
+  data.forEach(c=>{
+    grid.innerHTML+=`
+    <div class="card">
+      <div class="img-box">
+        <img src="${c.img}" onerror="this.src='assets/logo/logo.png'" onclick="openLightbox(this.src)">
+      </div>
+      <h3>${c.name}</h3>
+      <p>${c.desc}</p>
+      <button class="btn primary" onclick='openDetails(${JSON.stringify(c)})'>View Details</button>
+    </div>`;
+  });
+}
+renderGroup(learningGrid,learningCourses);
+renderGroup(commGrid,communicativeCourses);
+
+function openDetails(c){
+  courseDetail.innerHTML=`
+    <h3>${c.name}</h3>
+    <p>${c.desc}</p>
+    <p><b>Portions:</b> ${c.portion}</p>
+    <p><b>Duration:</b> ${c.duration}</p>
+    <p><b>Fees:</b> ${c.fees}</p>
+    <p><b>Certificate:</b> ${c.cert}</p>
+    <button class="btn primary" onclick="courseModal.style.display='none'">Close</button>`;
+  courseModal.style.display="flex";
+}
+
+function addCourse(){
+  const file = cImg.files[0];
+  const cat = cCat.value;
+  const course = {
+    name: cName.value,
+    desc: cDesc.value,
+    portion: cPortion.value,
+    duration: cDuration.value,
+    fees: cFees.value,
+    cert: cCert.value,
+    img: "assets/logo/logo.png" // default
+  };
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      course.img = e.target.result;
+      addToArray(cat, course);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    addToArray(cat, course);
+  }
+}
+
+function addToArray(cat, course) {
+  if (cat === "Learning Language") {
+    learningCourses.push(course);
+    localStorage.setItem("learningCourses", JSON.stringify(learningCourses));
+    renderGroup(learningGrid, learningCourses);
+  } else {
+    communicativeCourses.push(course);
+    localStorage.setItem("communicativeCourses", JSON.stringify(communicativeCourses));
+    renderGroup(commGrid, communicativeCourses);
+  }
+  // Clear form
+  cName.value = "";
+  cDesc.value = "";
+  cPortion.value = "";
+  cDuration.value = "";
+  cFees.value = "";
+  cCert.value = "";
+  cImg.value = "";
+  adminModal.style.display = "none";
+}
+
+/* STATIC IMAGES */
+function addSeries(container,path,count){
+  for(let i=1;i<=count;i++){
+    container.innerHTML+=`
+    <div class="card">
+      <div class="img-box">
+        <img src="${path}/${i}.jpg" onclick="openLightbox(this.src)">
+      </div>
+    </div>`;
+  }
+}
+addSeries(sridGrid,"assets/srid/students",3);
+addSeries(sridGrid,"assets/srid/staff",3);
+addSeries(portionsGrid,"assets/portions",3);
+addSeries(portionsGrid,"assets/duration",3);
+addSeries(certGrid,"assets/certificates",3);
+addSeries(galleryGrid,"assets/gallery/posters",3);
+addSeries(galleryGrid,"assets/gallery/business-card",2);
+</script>
+
+</body>
+</html>
