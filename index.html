@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Global SR English Learning Academy</title>
-<link rel="icon" href="assets/logo/favicon.png">
+<link rel="icon" href="logo/favicon.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -163,7 +163,7 @@ nav a{text-decoration:none;color:var(--ink);font-weight:600}
 
 <header>
   <div class="brand">
-    <img src="assets/logo/logo.png">
+    <img src="logo/logo.png">
     <div>
       <strong>Global SR English Learning Academy</strong><br>
       <small>Confidence • Communication • Certification</small>
@@ -196,7 +196,7 @@ Global SR English Learning Academy is a professional English training institute 
 <section id="about" class="section">
 <h2>About Us</h2>
 <p>
-Global SR English Learning Academy was founded with a vision to make English communication simple and accessible for everyone. We specialize in spoken English and communicative English training using practical, real-life examples. Our instructors focus on removing stage fear, hesitation, and lack of confidence in learners. Training sessions are interactive, learner-friendly, and designed for maximum speaking exposure. We provide individual attention and guidance to help learners progress at their own pace. Our syllabus is carefully structured from basic to advanced levels to ensure strong fundamentals. We emphasize continuous improvement through regular practice, feedback, and assessments. At Global SR, we don’t just teach English — we build confidence and communication skills for life.
+Global SR English Learning Academy was founded with a vision to make English communication simple and accessible for everyone. We specialize in spoken English and communicative English training using practical, real-life examples. Our instructors focus on removing stage fear, hesitation, and lack of confidence in learners. Training sessions are interactive, learner-friendly, and designed for maximum speaking exposure. We provide individual attention and guidance to help learners progress at their own pace. Our syllabus is carefully structured from basic to advanced levels to ensure strong fundamentals. We emphasize continuous improvement through regular practice, feedback, and assessments. At Global SR, we don't just teach English — we build confidence and communication skills for life.
 </p>
 </section>
 
@@ -315,8 +315,8 @@ function adminLogin(){
 
 /* ===== COURSES DATA (FIXED EXACTLY AS REQUESTED) ===== */
 let learningCourses = JSON.parse(localStorage.getItem("learningCourses")) || [
- {name:"Basic English",desc:"English fundamentals",portion:"Alphabets, words, sentences",duration:"2 Months",fees:"Affordable",cert:"Basic Certificate",img:"assets/courses/beginner/1.jpg"},
- {name:"Intermediate English",desc:"Grammar & fluency",portion:"Tenses, speaking",duration:"3 Months",fees:"Moderate",cert:"Intermediate Certificate",img:"assets/courses/intermediate/1.jpg"}
+ {name:"Basic English",desc:"English fundamentals",portion:"Alphabets, words, sentences",duration:"2 Months",fees:"Affordable",cert:"Basic Certificate",img:"courses/beginner/1.jpg"},
+ {name:"Intermediate English",desc:"Grammar & fluency",portion:"Tenses, speaking",duration:"3 Months",fees:"Moderate",cert:"Intermediate Certificate",img:"courses/intermediate/1.jpg"}
 ];
 
 // Remove any empty/unwanted entries (e.g., missing name or description)
@@ -324,10 +324,10 @@ learningCourses = learningCourses.filter(c => c && c.name && c.desc);
 localStorage.setItem("learningCourses", JSON.stringify(learningCourses));
 
 let communicativeCourses = JSON.parse(localStorage.getItem("communicativeCourses")) || [
- {name:"Pre-Basic Communication",desc:"Confidence start",portion:"Daily usage",duration:"1 Month",fees:"Low",cert:"Pre-Basic Certificate",img:"assets/courses/pre-basic/1.jpg"},
- {name:"Basic Communication",desc:"Clear communication",portion:"Sentence framing",duration:"1.5 Months",fees:"Standard",cert:"Basic Communication Certificate",img:"assets/courses/basic/1.jpg"},
- {name:"Pre-Intermediate Communication",desc:"Fluency building",portion:"Conversation practice",duration:"2 Months",fees:"Standard",cert:"Pre-Intermediate Certificate",img:"assets/courses/pre-intermediate/1.jpg"},
- {name:"Intermediate Communication",desc:"Professional English",portion:"Presentations, interviews",duration:"3 Months",fees:"Premium",cert:"Intermediate Communication Certificate",img:"assets/courses/intermediate-comm/1.jpg"}
+ {name:"Pre-Basic Communication",desc:"Confidence start",portion:"Daily usage",duration:"1 Month",fees:"Low",cert:"Pre-Basic Certificate",img:"courses/pre-basic/1.jpg"},
+ {name:"Basic Communication",desc:"Clear communication",portion:"Sentence framing",duration:"1.5 Months",fees:"Standard",cert:"Basic Communication Certificate",img:"courses/basic/1.jpg"},
+ {name:"Pre-Intermediate Communication",desc:"Fluency building",portion:"Conversation practice",duration:"2 Months",fees:"Standard",cert:"Pre-Intermediate Certificate",img:"courses/pre-intermediate/1.jpg"},
+ {name:"Intermediate Communication",desc:"Professional English",portion:"Presentations, interviews",duration:"3 Months",fees:"Premium",cert:"Intermediate Communication Certificate",img:"courses/intermediate-comm/1.jpg"}
 ];
 
 function renderGroup(grid,data){
@@ -336,7 +336,7 @@ function renderGroup(grid,data){
     grid.innerHTML+=`
     <div class="card">
       <div class="img-box">
-        <img src="${c.img}" onerror="this.src='assets/logo/logo.png'" onclick="openLightbox(this.src)">
+        <img src="${c.img}" onerror="this.src='logo/logo.png'" onclick="openLightbox(this.src)">
       </div>
       <h3>${c.name}</h3>
       <p>${c.desc}</p>
@@ -369,7 +369,7 @@ function addCourse(){
     duration: cDuration.value,
     fees: cFees.value,
     cert: cCert.value,
-    img: "assets/logo/logo.png" // default
+    img: "logo/logo.png" // default
   };
   if (file) {
     const reader = new FileReader();
@@ -415,13 +415,13 @@ function addSeries(container,path,count){
     </div>`;
   }
 }
-addSeries(sridGrid,"assets/srid/students",3);
-addSeries(sridGrid,"assets/srid/staff",3);
-addSeries(portionsGrid,"assets/portions",3);
-addSeries(portionsGrid,"assets/duration",3);
-addSeries(certGrid,"assets/certificates",3);
-addSeries(galleryGrid,"assets/gallery/posters",3);
-addSeries(galleryGrid,"assets/gallery/business-card",2);
+addSeries(sridGrid,"srid/students",3);
+addSeries(sridGrid,"srid/staff",3);
+addSeries(portionsGrid,"portions",3);
+addSeries(portionsGrid,"duration",3);
+addSeries(certGrid,"certificates",3);
+addSeries(galleryGrid,"gallery/posters",3);
+addSeries(galleryGrid,"gallery/business-card",2);
 </script>
 
 </body>
